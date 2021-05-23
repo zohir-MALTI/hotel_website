@@ -1,0 +1,99 @@
+.card-inner{
+  margin-left: 4rem;
+}
+
+.job-card {
+  margin: 20px;
+}
+
+.card-img-top {
+  width: auto;
+  height: 260px;
+}
+
+.jobs {
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+.container-home {
+  position: relative;
+}
+
+footer {
+  /*position: absolute;*/
+  bottom: 0;
+  width: 100%;
+  /* padding-top: 12px; */
+  height: 56px;
+}
+
+.textOnImageTop {
+  position: absolute;
+  top: 0%;
+  left: 9%;
+  font-size: 40px;
+  /*text-align: center;*/
+  color: darkblue;
+}
+
+.textOnImageBottom {
+  position: absolute;
+  bottom: 5%;
+  left: 20%;
+  font-size: 30px;
+  /*text-align: center;*/
+  color: white;
+}
+
+small {
+  white-space: normal;
+}
+
+.scrollhor {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.card-body-home {
+  height: 170px;
+}
+
+.card {
+  display: inline-table ;
+}
+
+label:before {
+  content: url("https://cdn1.iconfinder.com/data/icons/windows8_icons_iconpharm/26/unchecked_checkbox.png");
+  position: absolute;
+  z-index: 100;
+}
+:checked+label:before {
+  content: url("https://cdn1.iconfinder.com/data/icons/windows8_icons_iconpharm/26/checked_checkbox.png");
+}
+input[type=checkbox] {
+  display: none;
+}
+
+#diets {
+  text-align: center;
+}
+
+img.diets {
+  width: 120px;
+  margin: 25px 90px 25px 0px;
+
+}
+
+body, header {
+  background-color: seashell;
+}
+
+
+/*label {*/
+/*  margin: 10px;*/
+/*  width: 150px;*/
+/*  height: 150px;*/
+/*}*/
+
+

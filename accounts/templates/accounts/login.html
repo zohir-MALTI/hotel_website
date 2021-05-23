@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h1>Se connecter</h1>
+<form method="POST"  action="{% url 'login' %}">
+    {% csrf_token %}
+    Nom d'utilisateur: <br>
+    <input type="text" name="username" /> <br>
+    Mot de passe: <br>
+    <input type="password" name="password" />
+    <br><br>
+    Pour créer un compte, cliquez <a href="{% url 'signup' %}">ici</a>
+    <br><br>
+    <input type="submit" class="btn btn-warning" value="Se connecter" name="login">
+</form>
+{% if error %}
+<p style="color: red">{{ error }}</p>
+<br>
+{% endif %}
+
+{% endblock %}
+

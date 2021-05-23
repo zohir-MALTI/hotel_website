@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h4>{{ jobs_count }} offres.</h4>
+
+<div class="jobs">
+    <div class="row">
+      {% for job in jobs %}
+      <div class="card border-warning col-sm-6 col-md-4 col-lg-3 job-card">
+        <img src="{% static 'hotel_staff.jpg' %}" class="card-img-top" onclick="window.location='{% url 'detail' job.id %}';" style="cursor: pointer;">
+        <div class="card-body pb0">
+          <h5 class="card-title" onclick="window.location='{% url 'detail' job.id %}';" style="cursor: pointer;">{{ job.title }}</h5>
+          <h5>{{ job.company }}</h5>
+          <hr width="90%">
+          <p class="card-text pt0"><small>{{ job.summary_of_description }}</small></p>
+        </div>
+        <div class="card-footer border-warning bt0">
+            <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th><small>{{ job.salary }}DA</small> </th>
+                        <th><small>{{ job.get_category_display }}</small></th>
+                        <th><small>{{ job.get_contract_type_display }}</small></th>
+                    </tr>
+                    </tbody>
+                </table>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+</div>
+
+
+
+
+{% endblock %}

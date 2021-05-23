@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% if success %}
+        <p style="color: darkgreen">{{ success }}</p>
+        <br>
+    {% endif %}
+
+    <h1>Déposez votre annonce ici !</h1>
+    <form method="POST"  action="{% url 'hiring' %}">
+        {% csrf_token %}
+        Titre de l'annonce: <br>
+        <input type="text" name="title" /> <br>
+        Entreprise: <br>
+        <input type="text" name="company" /> <br>
+        Lieu: <br>
+        <input type="text" name="location" /> <br>
+        Lien de l'annonce (optionel): <br>
+        <input type="text" name="link" /> <br>
+        Salaire: <br>
+        <input type="text" name="salary" /> <br>
+        Catégorie: <br>
+        <select name="category" size="1" >
+            <optgroup label="Reception">
+                <option value="11">Réceptionniste</option>
+                <option value="12">Chef de réception</option>
+            </optgroup>
+            <optgroup label="Salle">
+                <option value="21">Maître d'hôtel</option>
+                <option value="22">Serveur(se)</option>
+                <option value="23">Sommelier</option>
+            </optgroup>
+            <optgroup label="Entretien">
+                <option value="31">Femme de chambre</option>
+                <option value="32">Maçon</option>
+                <option value="33">Plombier</option>
+                <option value="34">Electricien</option>
+            </optgroup>
+            <optgroup label="Restauration">
+                <option value="41">Cuisinier</option>
+                <option value="42">Chef de cuisine</option>
+                <option value="43">Patissier</option>
+            </optgroup>
+            <optgroup label="Sécurité">
+                <option value="51">Agent de sécurité</option>
+                <option value="52">Chef de sécurité</option>
+                <option value="53">Spécialiste caméras</option>
+            </optgroup>
+        </select> <br>
+
+        Type de contrat: <br>
+        <select name="contract_type" size="1">
+            <option value="CDI">CDI</option>
+            <option value="CDD">CDD</option>
+            <option value="SAIS">Saisonier</option>
+        </select> <br>
+        Description du poste: <br>
+        <textarea class="form-control" rows="2" name="description"></textarea> <br>
+
+        <input type="submit" class="btn btn-success" value="Déposer l'annonce" name="drop_job">
+    </form>
+
+
+{% endblock %}
+

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>My favorite jobs:</h2>
+
+<div class="row">
+  {% for job in jobs %}
+  <div class="card border-warning col-sm-12 col-md-6 col-lg-4">
+    <img src="{{ job.image }}" class="card-img-top" onclick="window.location='{% url 'detail' job.id %}';" style="cursor: pointer;">
+    <div class="card-body pb0">
+      <h5 class="card-title" onclick="window.location='{% url 'detail' job.id %}';" style="cursor: pointer;">{{ job.title }}</h5>
+      <hr width="90%">
+      <p class="card-text pt0"><small>{{ job.summary_of_summary }}</small></p>
+    </div>
+    <div class="card-footer border-warning bt0">
+      <span><span class="oi oi-clock"></span> {{ job.ready_in_minutes }}min / </span>
+      <span> {{ job.price_per_serving }}$</span>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+
+
+
+{% endblock %}

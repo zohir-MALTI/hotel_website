@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    {% if success %}
+        <p style="color: darkgreen">{{ success }}</p>
+        <br>
+    {% endif %}
+
+    <h1>Déposez votre annonce ici !</h1>
+    <form method="POST"  action="{% url 'drop_CV' %}">
+        {% csrf_token %}
+        Votre photo (optionnel): <br>
+        <input type="file" name="picture" /> <br>
+        Nom: <br>
+        <input type="text" name="lastname" /> <br>
+        Prénom: <br>
+        <input type="text" name="firstname" /> <br>
+        Email: <br>
+        <input type="email" name="email" /> <br>
+        Lieu: <br>
+        <input type="text" name="location" /> <br>
+        Catégorie: <br>
+        <select name="category" size="1" >
+            <optgroup label="Reception">
+                <option value="11">Réceptionniste</option>
+                <option value="12">Chef de réception</option>
+            </optgroup>
+            <optgroup label="Salle">
+                <option value="21">Maître d'hôtel</option>
+                <option value="22">Serveur(se)</option>
+                <option value="23">Sommelier</option>
+            </optgroup>
+            <optgroup label="Entretien">
+                <option value="31">Femme de chambre</option>
+                <option value="32">Maçon</option>
+                <option value="33">Plombier</option>
+                <option value="34">Electricien</option>
+            </optgroup>
+            <optgroup label="Restauration">
+                <option value="41">Cuisinier</option>
+                <option value="42">Chef de cuisine</option>
+                <option value="43">Patissier</option>
+            </optgroup>
+            <optgroup label="Sécurité">
+                <option value="51">Agent de sécurité</option>
+                <option value="52">Chef de sécurité</option>
+                <option value="53">Spécialiste caméras</option>
+            </optgroup>
+        </select> <br>
+
+        Votre description: <br>
+        <textarea class="form-control" rows="2" name="description"></textarea> <br>
+        Votre CV (optionnel): <br>
+        <input type="file" name="cv_file" /> <br>
+
+        <input type="submit" class="btn btn-success" value="Déposer votre CV" name="submit_CV">
+    </form>
+
+
+{% endblock %}
+

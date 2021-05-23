@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <h3>{{ job.title }}</h3>
+
+
+
+    <div class="row mt6">
+        <div class="col-6">
+            <img src="{% static 'hotel_staff.jpg' %}" class="img-fluid" />
+        </div>
+        <div class="col-6">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th><span class="oi oi-home"></span> {{ job.company }}</th>
+                    <th><span class="oi oi-location"></span> {{ job.location }}</th>
+                </tr>
+                </thead>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th><span class="oi oi-euro"></span> {{ job.salary }} D.A</th>
+                    <th><span class="oi oi-wrench"></span> {{ job.get_category_display }}</th>
+                    <th><span class="oi oi-target"></span> {{ job.get_contract_type_display }}</th>
+                </tr>
+                </thead>
+            </table>
+
+            <button type="button" class="btn btn-success" style="width: inherit;">
+                <a href="javascript:{document.getElementById('add_like').submit()}" style="color: white;"><span class="badge rounded-pill bg-success"><span class="oi oi-thumb-up"></span>Like ({{ likes_count }})</span></a>
+            </button>
+            <br><br>
+            <h3>Description du poste:</h3>
+            <p> {{ job.description }} </p>
+            <br>
+
+        </div>
+    </div>
+
+
+
+
+
+    <hr width="80%">
+
+
+
+
+
+
+
+
+    {#<div class="row">#}
+    {#  <div class="col-lg-2">#}
+    {#    <img src="{% static 'hotel5.jpg' %}" class="img img-rounded img-fluid" style="height: 105px;"/>#}
+    {#  </div>#}
+    {#  <div class="col-lg-10">#}
+    {#    <p>#}
+    {#      <strong>You</strong>#}
+    {#    </p>#}
+    {#    <form id="add_comment" method="POST" action="{% url 'add_comment' job.id %}">#}
+    {#      {% csrf_token%}#}
+    {#      <input type="text" name="comment" placeholder="add your comment here" />#}
+    {#      <input type="submit" class="btn btn-success" value="add" name="add">#}
+    {#    </form>#}
+    {#  </div>#}
+    {#</div>#}
+    {##}
+    {##}
+    {#{% for comment in job_comments %}#}
+    {#<div class="row">#}
+    {#  <div class="col-lg-2">#}
+    {#    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" style="height: 105px;"/>#}
+    {#  </div>#}
+    {#  <div class="col-lg-10">#}
+    {#    <p>#}
+    {#      <strong>{{ comment.user_id }}</strong>#}
+    {#      <span class="text-secondary text-right">{{ comment.pretty_date }}</span>#}
+    {#    </p>#}
+    {#    <p>{{ comment.comment }}</p>#}
+    {#  </div>#}
+    {#</div>#}
+    {#{% endfor %}#}
+    {##}
+    {#<br><br><br>#}
+    {##}
+    {##}
+    {##}
+    {##}
+    {##}
+    {##}
+    {#<br><br><br>#}
+    {##}
+    {##}
+    {##}
+    {##}
+    {##}
+    {#<h2>Recommended jobs:</h2>#}
+    {#<div class="row">#}
+    {#  {% for recommended_job in recommended_jobs %}#}
+    {#  <div class="card border-warning col-sm-12 col-md-6 col-lg-4">#}
+    {#    <img src="{{ recommended_job.image }}" class="card-img-top" onclick="window.location='{% url 'detail' recommended_job.id %}';" style="cursor: pointer;">#}
+    {#    <div class="card-body pb0">#}
+    {#      <h5 class="card-title" onclick="window.location='{% url 'detail' recommended_job.id %}';" style="cursor: pointer;">{{ recommended_job.title }}</h5>#}
+    {#      <hr width="90%">#}
+    {#      <p class="card-text pt0"><small>{{ recommended_job.summary_of_summary }}</small></p>#}
+    {#    </div>#}
+    {#    <div class="card-footer border-warning bt0">#}
+    {#      <span><span class="oi oi-clock"></span> {{ recommended_job.ready_in_minutes }}min / </span>#}
+    {#      <span> {{ recommended_job.price_per_serving }}$</span>#}
+    {#    </div>#}
+    {#  </div>#}
+    {#  {% endfor %}#}
+    {#</div>#}
+
+
+
+    <form id="add_like" method="POST" action="{% url 'add_like' job.id %}">
+      {% csrf_token%}
+      <input type="hidden">
+    </form>
+
+
+
+{% endblock %}

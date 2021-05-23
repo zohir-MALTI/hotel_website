@@ -1,3 +1,10 @@
 from django.contrib import admin
+from import_export.admin import ImportExportModelAdmin
+from .models import Job
 
-# Register your models here.
+
+class JobAdmin(ImportExportModelAdmin):
+    class Meta:
+        model = Job
+
+admin.site.register(Job, JobAdmin)
