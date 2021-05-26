@@ -2,6 +2,20 @@
   margin-left: 4rem;
 }
 
+.job-card {
+  margin: 20px;
+}
+
+.card-img-top {
+  width: auto;
+  height: 260px;
+}
+
+.jobs {
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
 .container-home {
   position: relative;
 }
@@ -14,7 +28,23 @@ footer {
   height: 56px;
 }
 
+.textOnImageTop {
+  position: absolute;
+  top: 0%;
+  left: 9%;
+  font-size: 40px;
+  /*text-align: center;*/
+  color: darkblue;
+}
 
+.textOnImageBottom {
+  position: absolute;
+  bottom: 5%;
+  left: 20%;
+  font-size: 30px;
+  /*text-align: center;*/
+  color: white;
+}
 
 small {
   white-space: normal;
@@ -23,6 +53,9 @@ small {
 .scrollhor {
   overflow: auto;
   white-space: nowrap;
+  border: 3px dashed #ffbf29;
+  padding: 20px;
+  margin-bottom: 10px;
 }
 
 .card-body-home {
@@ -56,7 +89,7 @@ img.diets {
 }
 
 body, header {
-  background-color: steelblue;
+  background-color: seashell;
 }
 
 

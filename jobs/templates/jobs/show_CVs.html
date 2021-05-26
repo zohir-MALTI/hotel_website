@@ -11,11 +11,11 @@
             <div class="card mb-3 col-sm-6 col-md-4 col-lg-4" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-md-4" style="align-self: center">
-                        <img src="{% static 'CV_image.jpg' %}" style="max-width: 100%;">
+                        <img src="{% static 'CV_image.jpg' %}" onclick="window.location='{% url 'detail_CV' CV.id %}';" style="cursor: pointer;max-width: 100%;">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">{{ CV.firstname }} {{ CV.lastname }}</h5>
+                            <h5 class="card-title" onclick="window.location='{% url 'detail_CV' CV.id %}';" style="cursor: pointer;">{{ CV.firstname }} {{ CV.lastname }}</h5>
                             <p class="card-text">
                                 <span class="oi oi-box"></span> {{ CV.email }} <br>
                                 <span class="oi oi-location"></span> {{ CV.location }} <br>

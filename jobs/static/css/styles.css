@@ -53,6 +53,9 @@ small {
 .scrollhor {
   overflow: auto;
   white-space: nowrap;
+  border: 3px dashed #ffbf29;
+  padding: 20px;
+  margin-bottom: 10px;
 }
 
 .card-body-home {

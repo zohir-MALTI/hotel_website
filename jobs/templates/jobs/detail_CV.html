@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <h3>{{ cv.firstname.capitalize }} {{ cv.lastname.upper }}</h3>
+
+    {#    email = models.TextField()#}
+    {#    category = models.IntegerField(choices=JOBS_CHOICES)#}
+    {#    registration_date = models.DateTimeField(auto_now_add=True)#}
+
+    <div class="row mt6">
+        <div class="col-6">
+            <img src="{% static 'CV_image.jpg' %}" class="img-fluid" />
+        </div>
+        <div class="col-6">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th><span class="oi oi-envelope-closed"></span> {{ cv.email }}</th>
+                </tr>
+                <tr>
+                    <th><span class="oi oi-location"></span> {{ cv.location }}</th>
+                </tr>
+                <tr>
+                    <th><span class="oi oi-wrench"></span> {{ cv.get_category_display }}</th>
+                </tr>
+                <tr>
+                    <th><span class="oi oi-document"></span> <a href="{% static 'CV.cv_file' %}">Télécharger son CV </a></th>
+                </tr>
+                <tr>
+                    <th><span class="oi oi-clock"></span> Membre depuis le {{ cv.pretty_date }}</th>
+                </tr>
+                </thead>
+            </table>
+
+
+            <br>
+            <h3>Description:</h3>
+            <p> {{ cv.description }} </p>
+            <br>
+
+        </div>
+    </div>
+
+
+    <hr width="80%">
+
+    <h3>Postes associés ({{ jobs_count }}):</h3>
+
+    <div class="row">
+      {% for job in jobs %}
+      <div class="card border-warning col-sm-6 col-md-4 col-lg-3 job-card">
+        <img src="{% static 'hotel_staff.jpg' %}" class="card-img-top" onclick="window.location='{% url 'detail' job.id %}';" style="cursor: pointer;">
+        <div class="card-body pb0">
+          <h5 class="card-title" onclick="window.location='{% url 'detail' job.id %}';" style="cursor: pointer;">{{ job.title }}</h5>
+          <h5>{{ job.company }}</h5>
+          <hr width="90%">
+          <p class="card-text pt0"><small>{{ job.summary_of_description }}</small></p>
+        </div>
+        <div class="card-footer border-warning bt0">
+            <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th><small>{{ job.salary }}DA</small> </th>
+                        <th><small>{{ job.get_category_display }}</small></th>
+                        <th><small>{{ job.get_contract_type_display }}</small></th>
+                    </tr>
+                    </tbody>
+                </table>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+
+
+{% endblock %}

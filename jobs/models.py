@@ -63,7 +63,7 @@ class CV(models.Model):
         return self.firstname + self.lastname.upper()
 
     def pretty_date(self):
-        return self.registration_date.strftime("%Y-%m-%d")
+        return self.registration_date.strftime("%d/%m/%Y")
 
 
 class Likes(models.Model):
@@ -82,4 +82,8 @@ class Comments(models.Model):
         return self.comment_date.strftime("%Y-%m-%d %H:%M")
 
 
+class Applications(models.Model):
+    user_id   = models.ForeignKey(User, on_delete=models.CASCADE)
+    job_id    = models.ForeignKey(Job,  on_delete=models.CASCADE)
+    app_date = models.DateTimeField(auto_now_add=True)
 

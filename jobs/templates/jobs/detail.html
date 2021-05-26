@@ -33,6 +33,16 @@
                 <a href="javascript:{document.getElementById('add_like').submit()}" style="color: white;"><span class="badge rounded-pill bg-success"><span class="oi oi-thumb-up"></span>Like ({{ likes_count }})</span></a>
             </button>
             <br><br>
+            {% if not already_exists %}
+            <button type="button" class="btn btn-warning" style="width: inherit;">
+                <a href="javascript:{document.getElementById('apply').submit()}" style="color: white;"><span class="badge rounded-pill bg-warning"> Postuler</span></a>
+            </button>
+            {% else %}
+            <button type="button" class="btn btn-secondary" style="width: inherit;" disabled>
+                <a style="color: white;"><span class="badge rounded-pill bg-secondary"> Vous avez déja postulé à cette offre !</span></a>
+            </button>
+            {% endif %}
+            <br><br>
             <h3>Description du poste:</h3>
             <p> {{ job.description }} </p>
             <br>
@@ -53,72 +63,14 @@
 
 
 
-    {#<div class="row">#}
-    {#  <div class="col-lg-2">#}
-    {#    <img src="{% static 'hotel5.jpg' %}" class="img img-rounded img-fluid" style="height: 105px;"/>#}
-    {#  </div>#}
-    {#  <div class="col-lg-10">#}
-    {#    <p>#}
-    {#      <strong>You</strong>#}
-    {#    </p>#}
-    {#    <form id="add_comment" method="POST" action="{% url 'add_comment' job.id %}">#}
-    {#      {% csrf_token%}#}
-    {#      <input type="text" name="comment" placeholder="add your comment here" />#}
-    {#      <input type="submit" class="btn btn-success" value="add" name="add">#}
-    {#    </form>#}
-    {#  </div>#}
-    {#</div>#}
-    {##}
-    {##}
-    {#{% for comment in job_comments %}#}
-    {#<div class="row">#}
-    {#  <div class="col-lg-2">#}
-    {#    <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" style="height: 105px;"/>#}
-    {#  </div>#}
-    {#  <div class="col-lg-10">#}
-    {#    <p>#}
-    {#      <strong>{{ comment.user_id }}</strong>#}
-    {#      <span class="text-secondary text-right">{{ comment.pretty_date }}</span>#}
-    {#    </p>#}
-    {#    <p>{{ comment.comment }}</p>#}
-    {#  </div>#}
-    {#</div>#}
-    {#{% endfor %}#}
-    {##}
-    {#<br><br><br>#}
-    {##}
-    {##}
-    {##}
-    {##}
-    {##}
-    {##}
-    {#<br><br><br>#}
-    {##}
-    {##}
-    {##}
-    {##}
-    {##}
-    {#<h2>Recommended jobs:</h2>#}
-    {#<div class="row">#}
-    {#  {% for recommended_job in recommended_jobs %}#}
-    {#  <div class="card border-warning col-sm-12 col-md-6 col-lg-4">#}
-    {#    <img src="{{ recommended_job.image }}" class="card-img-top" onclick="window.location='{% url 'detail' recommended_job.id %}';" style="cursor: pointer;">#}
-    {#    <div class="card-body pb0">#}
-    {#      <h5 class="card-title" onclick="window.location='{% url 'detail' recommended_job.id %}';" style="cursor: pointer;">{{ recommended_job.title }}</h5>#}
-    {#      <hr width="90%">#}
-    {#      <p class="card-text pt0"><small>{{ recommended_job.summary_of_summary }}</small></p>#}
-    {#    </div>#}
-    {#    <div class="card-footer border-warning bt0">#}
-    {#      <span><span class="oi oi-clock"></span> {{ recommended_job.ready_in_minutes }}min / </span>#}
-    {#      <span> {{ recommended_job.price_per_serving }}$</span>#}
-    {#    </div>#}
-    {#  </div>#}
-    {#  {% endfor %}#}
-    {#</div>#}
-
 
 
     <form id="add_like" method="POST" action="{% url 'add_like' job.id %}">
+      {% csrf_token%}
+      <input type="hidden">
+    </form>
+
+    <form id="apply" method="POST" action="{% url 'apply' job.id %}">
       {% csrf_token%}
       <input type="hidden">
     </form>

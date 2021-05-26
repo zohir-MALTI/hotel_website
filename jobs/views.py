@@ -22,7 +22,7 @@ def jobs(request):
 def show_CVs(request):
     CVs = CV.objects.all()
     return render(request, 'jobs/show_CVs.html', {'CVs': CVs,
-                                              'CVs_count': CV.objects.count()})
+                                                  'CVs_count': CV.objects.count()})
 
 
 @login_required(login_url="/accounts/login")
@@ -71,8 +71,10 @@ def detail(request, job_id):
     job_likes_count = Likes.objects.filter(job_id=job_id).count()
     job_comments = Comments.objects.filter(job_id=job_id)
 
+    exists_app = Applications.objects.filter(job_id=job_id, user_id=request.user.id).exists()
+
     return render(request, 'jobs/detail.html',
-                  {'job': job, 'likes_count': job_likes_count, 'job_comments': job_comments})
+                  {'job': job, 'likes_count': job_likes_count, 'job_comments': job_comments, "already_exists": exists_app})
 
 
 def add_action(request, job_likes, job_id):
@@ -102,67 +104,38 @@ def favorites(request):
                                               'jobs_count': jobs_count})
 
 
+def detail_CV(request, CV_id):
+    cv = get_object_or_404(CV, pk=CV_id)
+    associated_jobs = Job.objects.filter(category=cv.category)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return render(request, 'jobs/detail_CV.html', {'cv': cv, "jobs": associated_jobs, "jobs_count": associated_jobs.count()})
 
 
 @login_required(login_url="/accounts/login")
-def add_dislike(request, recipe_id):
+def apply(request, job_id):
     if request.method == 'POST':
-        recipe_dislikes = Dislikes.objects
-        add_action(request, recipe_dislikes, recipe_id)
-        return redirect('/' + str(recipe_id))
-
-
-@login_required(login_url="/accounts/login")
-def add_comment(request, recipe_id):
-    if request.method == 'POST':
-        recipe_comments = Comments.objects
-        #add_action(request, recipe_comments, recipe_id)
-        recipe_comments.create(user_id=request.user,
-                               recipe_id=get_object_or_404(Job, pk=recipe_id),
-                               comment=request.POST["comment"])
-
-        return redirect('/' + str(recipe_id))
-
-
-def search(request):
-    if request.method == 'GET':
-        keys = request.GET.get("search")
-        page_number = request.GET.get("page")
-        #jobs = Job.objects.filter(
-        #    Q(title__icontains=keys) #| Q(ingredients__icontains=keys)
-        #Q(equipments__icontains=keys)
-        #)  # filter(search='cheese')  / filter(body_text__search='cheese')
-        #jobs = Job.objects.annotate(search=SearchVector('ingredients')).filter(search=keys)
-        jobs = Job.objects.annotate(search=SearchVector('ingredients')).filter(search=SearchQuery(keys))
-        #jobs = Job.objects.annotate(rank=SearchRank(SearchVector('ingredients'), SearchQuery(keys))).order_by('-rank')
-        paginator = Paginator(jobs, 36)
         try:
-            jobs_obj = paginator.get_page(page_number)
-        except PageNotAnInteger:
-            jobs_obj = paginator.get_page(1)
-        except EmptyPage:
-            jobs_obj = paginator.get_page(1)
+            job_app = Applications.objects.get(job_id=job_id, user_id = request.user)
+            return redirect('/' + str(job_id))
+        except Applications.DoesNotExist:
+            job = Job.objects.get(pk=job_id)
+            job_app = Applications.objects.create(job_id=job, user_id = request.user)
+            job_app.save()
+            return redirect('/' + str(job_id))
 
-        return render(request, 'jobs/jobs.html', {'jobs': jobs_obj, 'result_count': len(jobs),
-                                                  'query': keys})
+
+@login_required(login_url="/accounts/login")
+def admin_dashboard(request):
+    jobs = Job.objects.all()
+    jobs_apps_dict = {}
+    for job in jobs:
+        ass_apps = Applications.objects.filter(job_id=job.pk)
+        ass_users_idx = [app.user_id for app in ass_apps]
+        jobs_apps_dict[job] = CV.objects.filter(user_id__in=ass_users_idx)
+
+    return render(request, 'jobs/admin_dashboard.html', {'jobs_apps_dict': jobs_apps_dict, "jobs_count": len(jobs_apps_dict)})
+
+
+
 
 

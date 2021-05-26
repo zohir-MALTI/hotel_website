@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+    <h1 align="center">Offres et candidature ({{ jobs_count }} offres):</h1>
+
+    <br>
+    {% for job, associated_users in jobs_apps_dict.items %}
+        <div class="row" style="min-height: 200px">
+            <div class="col-lg-2" style="align-self: center;text-align: center;cursor: pointer;" onclick="window.location='{% url 'detail' job.id %}';">
+                <p>{{ job.title }}</p>
+                <p>{{ job.company }}</p>
+            </div>
+            <div class="col-lg-10">
+                <div class="scrollhor" style="min-height: 200px">
+                    {% if associated_users.count == 0 %}
+                        <h2 align="center">Désolé, aucune candidature pour ce poste !</h2>
+                    {% endif %}
+                    {% for user in associated_users %}
+                        <div class="card  home-card border-warning col-sm-4 col-md-3 col-lg-2">
+                            <div class="card-body pb0 " onclick="window.location='{% url 'detail_CV' user.id %}';" style="cursor: pointer;">
+                                <p>{{ user.firstname.capitalize }} {{ user.lastname.upper }}</p>
+                                <p><span class="oi oi-box"></span> {{ user.email }}</p>
+                                <p><span class="oi oi-location"></span> {{ user.location }}</p>
+                                <p><span class="oi oi-wrench"></span> {{ user.get_category_display }}</p>
+                                <p></p>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+
+
+
+
+
+    <div class="jobs">
+        <div class="row">
+            {% for job in jobs %}
+                <div class="card border-warning col-sm-6 col-md-4 col-lg-3 job-card">
+                    <img src="{% static 'hotel_staff.jpg' %}" class="card-img-top" onclick="window.location='{% url 'detail' job.id %}';" style="cursor: pointer;">
+                    <div class="card-body pb0">
+                        <h5 class="card-title" onclick="window.location='{% url 'detail' job.id %}';" style="cursor: pointer;">{{ job.title }}</h5>
+                        <h5>{{ job.company }}</h5>
+                        <hr width="90%">
+                        <p class="card-text pt0"><small>{{ job.summary_of_description }}</small></p>
+                    </div>
+                    <div class="card-footer border-warning bt0">
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <th><small>{{ job.salary }}DA</small> </th>
+                                <th><small>{{ job.get_category_display }}</small></th>
+                                <th><small>{{ job.get_contract_type_display }}</small></th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
